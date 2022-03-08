@@ -2,8 +2,8 @@ using TodoNET6.Services;
 
 namespace TodoNET6.Models
 {
-    public class Todo : IEntity<int>
+    public class Todo : IEntity<Guid>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

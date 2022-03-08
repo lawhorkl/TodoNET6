@@ -17,6 +17,6 @@ namespace TodoNET6.Services
             Expression<Func<TEntity, bool>> predicate
         );
         Task<TEntity> UpdateAsync(TIndex index, TEntity entity);
-        Task<TEntity> DeleteAsync(TIndex index);
+        Task DeleteAsync(TIndex index);
     }
 }

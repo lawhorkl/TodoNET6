@@ -9,15 +9,26 @@ namespace TodoNET6.Controllers
             ITodoRepository todoRepository
         )
         {
-            throw new NotImplementedException();
+            var allTodos = await todoRepository.WhereAsync(todo => true);
+
+            return Results.Ok(
+                allTodos
+            );
         }
 
         public static async Task<IResult> GetTodo(
-           int id,
+           Guid id,
            ITodoRepository todoRepository
         )
         {
-            throw new NotImplementedException();
+            var todo = await todoRepository.FetchAsync(id);
+
+            if (todo == null)
+            {
+                return Results.NotFound();
+            }
+
+            return Results.Ok(todo);
         }
 
         public static async Task<IResult> CreateTodo(
@@ -25,24 +36,35 @@ namespace TodoNET6.Controllers
             ITodoRepository todoRepository
         )
         {
-            throw new NotImplementedException();
+            var createdTodo = await todoRepository.CreateAsync(
+                todo
+            );
+
+            return Results.Ok(createdTodo);
         }
 
         public static async Task<IResult> UpdateTodo(
-            int id,
+            Guid id,
             Todo todo,
             ITodoRepository todoRepository
         )
         {
-            throw new NotImplementedException();
+            var updatedTodo = await todoRepository.UpdateAsync(
+                id,
+                todo
+            );
+
+            return Results.Ok(updatedTodo);
         }
 
         public static async Task<IResult> DeleteTodo(
-            int id,
+            Guid id,
             ITodoRepository todoRepository
         )
         {
-            throw new NotImplementedException();
+            await todoRepository.DeleteAsync(id);
+
+            return Results.NoContent();
         }
     }
 }
