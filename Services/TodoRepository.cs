@@ -21,11 +21,13 @@ namespace TodoNET6.Services
             return Task.FromResult(_todosDict[newId]);
         }
 
-        public Task DeleteAsync(Guid index)
+        public Task<Todo> DeleteAsync(Guid index)
         {
+            var todo = _todosDict[index];
+
             _todosDict.Remove(index);
 
-            return Task.CompletedTask;
+            return Task.FromResult(todo);
         }
 
         public async Task<Todo> FetchAsync(Guid index)

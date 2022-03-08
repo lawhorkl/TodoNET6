@@ -62,9 +62,9 @@ namespace TodoNET6.Controllers
             ITodoRepository todoRepository
         )
         {
-            await todoRepository.DeleteAsync(id);
+            var todo = await todoRepository.DeleteAsync(id);
 
-            return Results.NoContent();
+            return Results.Ok(todo);
         }
     }
 }
