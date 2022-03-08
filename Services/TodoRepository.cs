@@ -14,7 +14,9 @@ namespace TodoNET6.Services
         public Task<Todo> CreateAsync(Todo entity)
         {
             var newId = Guid.NewGuid();
-            _todosDict.Add(newId, entity);
+
+            entity.Id = newId;
+            _todosDict.Add(entity.Id, entity);
 
             return Task.FromResult(_todosDict[newId]);
         }
@@ -42,7 +44,9 @@ namespace TodoNET6.Services
         {
             if (!_todosDict.ContainsKey(index))
             {
-                _todosDict.Add(index, entity);
+                entity.Id = index;
+                
+                _todosDict.Add(entity.Id, entity);
 
                 return Task.FromResult(entity);
             }

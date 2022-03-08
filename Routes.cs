@@ -23,7 +23,7 @@ namespace TodoNET6
             app.MapGet("/task", TodoController.GetTodos);
             app.MapGet("/task/{id:Guid}", TodoController.GetTodo);
             app.MapPost("/task", TodoController.CreateTodo);
-            app.MapPost("/task/{id:Guid}", TodoController.UpdateTodo);
+            app.MapPut("/task/{id:Guid}", TodoController.UpdateTodo);
             app.MapDelete("/task/{id:Guid}", TodoController.DeleteTodo);
         }
     }
