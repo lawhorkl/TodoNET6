@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS todos (
+    ID uuid PRIMARY KEY NOT NULL,
+    "Description" TEXT NOT NULL
+)

@@ -4,15 +4,14 @@ services:
         image: postgres:14.2
         restart: always
         environment:
-            POSTGRES_USER: testuser
             POSTGRES_PASSWORD: password
         volumes:
             - "./docker/db/data:/var/lib/postgresql/data"
             - "./docker/init/:/docker-entrypoint-initdb.d"
         ports:
             - 5432:5432
-    adminer:
-        image: adminer
-        restart: always
-        ports:
-            - 8080:8080
+    # adminer:
+    #     image: adminer
+    #     restart: always
+    #     ports:
+    #         - 8080:8080
