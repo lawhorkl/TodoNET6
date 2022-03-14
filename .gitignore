@@ -1,3 +1,4 @@
 bin/
 obj/
 docker/db/data
+inflight_trace_dump/
