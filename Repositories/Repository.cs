@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 
 
-namespace TodoNET6.Services
+namespace TodoNET6.Repositories
 {
     public interface IEntity<TIndex>
     {

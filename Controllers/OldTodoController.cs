@@ -1,5 +1,5 @@
 using TodoNET6.Models;
-using TodoNET6.Services;
+using TodoNET6.Repositories;
 
 namespace TodoNET6.Controllers
 {

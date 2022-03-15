@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using TodoNET6.Services;
+using TodoNET6.Repositories;
 
 namespace TodoNET6.Models
 {

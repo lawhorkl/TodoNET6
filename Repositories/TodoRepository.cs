@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TodoNET6.db;
 using TodoNET6.Models;
 
-namespace TodoNET6.Services
+namespace TodoNET6.Repositories
 {
     public interface ITodoRepository : IRepository<Todo, Guid> {}
 
