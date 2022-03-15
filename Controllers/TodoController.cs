@@ -21,7 +21,7 @@ namespace TodoNET6.Controllers
            ITodoRepository todoRepository
         )
         {
-            var todo = await todoRepository.FetchAsync(id);
+            var todo = await todoRepository.FindAsync(id);
 
             if (todo == null)
             {

@@ -12,7 +12,7 @@ namespace TodoNET6.Services
         where TEntity : IEntity<TIndex>
     {
         Task<TEntity> CreateAsync(TEntity entity);
-        Task<TEntity> FetchAsync(TIndex index);
+        Task<TEntity?> FindAsync(params object[] values);
         Task<IEnumerable<TEntity>> WhereAsync(
             Expression<Func<TEntity, bool>> predicate
         );

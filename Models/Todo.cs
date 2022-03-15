@@ -12,7 +12,7 @@ namespace TodoNET6.Models
         public string? Description { get; set; }
 
         public DateTime? DueDate { get; set; }
-        public DateTime CreatedDate { get; } = DateTime.UtcNow;
+        public DateTime CreatedDate { get; private set; } = DateTime.UtcNow;
         public bool Completed { get; set; } = false;
     }
 }

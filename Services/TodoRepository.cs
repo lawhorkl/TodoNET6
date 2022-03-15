@@ -1,4 +1,6 @@
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using TodoNET6.db;
 using TodoNET6.Models;
 
 namespace TodoNET6.Services
@@ -7,64 +9,54 @@ namespace TodoNET6.Services
 
     public class TodoRepository : ITodoRepository
     {
-        private readonly Dictionary<Guid, Todo> _todosDict =
-            new Dictionary<Guid, Todo>();
-        private IEnumerable<Todo> _todos => _todosDict.Values;
+        private readonly ApplicationContext _context;
+        private DbSet<Todo> _dbSet => _context.Set<Todo>();
 
-        public Task<Todo> CreateAsync(Todo entity)
+        public TodoRepository(
+            ApplicationContext context
+        )
         {
-            var newId = Guid.NewGuid();
-
-            entity.Id = newId;
-            _todosDict.Add(entity.Id, entity);
-
-            return Task.FromResult(_todosDict[newId]);
+            _context = context;
         }
 
-        public Task<Todo> DeleteAsync(Guid index)
+
+        public async Task<Todo> CreateAsync(Todo entity)
         {
-            var todo = _todosDict[index];
+            var todo = _dbSet.Add(entity);
 
-            _todosDict.Remove(index);
+            await _context.SaveChangesAsync();
 
-            return Task.FromResult(todo);
+            return todo.Entity;
         }
 
-        public async Task<Todo> FetchAsync(Guid index)
+        public async Task<Todo> DeleteAsync(Guid index)
         {
-            // stupid await task run to appease the almighty compiler god
-            await Task.Run(() => {});
-            if (!_todosDict.ContainsKey(index))
-            {
-                return null;
-            }
+            var todo = _dbSet.Remove(new Todo { Id = index });
 
-            return _todosDict[index];
+            await _context.SaveChangesAsync();
+            
+            return todo.Entity;
         }
 
-        public Task<Todo> UpdateAsync(Guid index, Todo entity)
+        public async Task<Todo?> FindAsync(params object[] values)
         {
-            if (!_todosDict.ContainsKey(index))
-            {
-                entity.Id = index;
-                
-                _todosDict.Add(entity.Id, entity);
-
-                return Task.FromResult(entity);
-            }
-
-            _todosDict[index] = entity;
-
-            return Task.FromResult(entity);
+            return await _dbSet.FindAsync(values);
         }
 
-        public Task<IEnumerable<Todo>> WhereAsync(Expression<Func<Todo, bool>> predicate)
+        public async Task<Todo> UpdateAsync(Guid index, Todo entity)
         {
-            // Take an expression here and compile it at runtime because most ORMs use 
-            // expressions with reflection to build the DB queries.
-            return Task.FromResult(
-                _todos.Where(predicate.Compile())
-            );
+            entity.Id = index;
+
+            var todo = _dbSet.Update(entity);
+
+            await _context.SaveChangesAsync();
+
+            return todo.Entity;
+        }
+
+        public async Task<IEnumerable<Todo>> WhereAsync(Expression<Func<Todo, bool>> predicate)
+        {
+            return await _dbSet.Where(predicate).ToListAsync();
         }
     }
 }
