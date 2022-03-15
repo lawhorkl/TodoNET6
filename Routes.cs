@@ -20,11 +20,11 @@ namespace TodoNET6
 
         private static void TodoRoutes(WebApplication app)
         {
-            app.MapGet("/task", TodoController.GetTodos);
-            app.MapGet("/task/{id:Guid}", TodoController.GetTodo);
-            app.MapPost("/task", TodoController.CreateTodo);
-            app.MapPut("/task/{id:Guid}", TodoController.UpdateTodo);
-            app.MapDelete("/task/{id:Guid}", TodoController.DeleteTodo);
+            // app.MapGet("/task", TodoController.GetTodos);
+            // app.MapGet("/task/{id:Guid}", TodoController.GetTodo);
+            // app.MapPost("/task", TodoController.CreateTodo);
+            // app.MapPut("/task/{id:Guid}", TodoController.UpdateTodo);
+            // app.MapDelete("/task/{id:Guid}", TodoController.DeleteTodo);
         }
     }
 }
